@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ORGANI' CARE — Премиальное питание</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --white:#ffffff;
+      --accent:#800080;
+      --accent-light:#9c27b0;
+      --text:#111827;
+      --muted:#6b7280;
+      --light-gray:#f0f3f9;
+      --radius:22px;
+      --radius-lg:28px;
+      --shadow-sm:0 4px 12px rgba(16,24,40,0.05);
+      --shadow:0 12px 30px rgba(16,24,40,0.08);
+      --shadow-lg:0 20px 40px rgba(128, 0, 128, 0.15);
+      --max:1100px;
+      --transition:all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Inter', system-ui, -apple-system;
+      background:linear-gradient(180deg,#fdfefe,#f1f5fb);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+
+    /* ================= PROGRESS BAR ================= */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.15s ease-out;
+      box-shadow: 0 2px 10px rgba(128, 0, 128, 0.2);
+    }
+
+    /* ================= HEADER ================= */
+    header{
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:100;
+      backdrop-filter:blur(10px);
+      background:rgba(255,255,255,0.92);
+      border-bottom:1px solid rgba(0,0,0,0.05);
+      transform:translateY(0);
+      transition:var(--transition);
+    }
+    header.scrolled{
+      box-shadow:var(--shadow);
+      background:rgba(255,255,255,0.98);
+    }
+    .header-inner{
+      max-width:var(--max);
+      margin:auto;
+      padding:18px 20px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .logo{
+      font-weight:700;
+      font-size:20px;
+      color:var(--accent);
+      cursor: pointer; /* Добавил курсор указатель */
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+    .logo:hover {
+      transform: translateY(-2px);
+      color: var(--accent-light);
+      background: rgba(128, 0, 128, 0.05);
+    }
+    .logo:active {
+      transform: translateY(0);
+    }
+    nav a{
+      margin-left:22px;
+      text-decoration:none;
+      font-size:15px;
+      color:var(--text);
+      font-weight:500;
+      position:relative;
+      padding:6px 0;
+      transition:var(--transition);
+    }
+    nav a::after{
+      content:"";
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:0;
+      height:2px;
+      background:var(--accent);
+      transition:var(--transition);
+      border-radius:2px;
+    }
+    nav a:hover{
+      color:var(--accent);
+    }
+    nav a:hover::after{
+      width:100%;
+    }
+
+    /* ================= HERO ================= */
+    .hero{
+      height:70vh; /* Уменьшил высоту */
+      background:url('https://sun9-45.userapi.com/s/v1/ig2/Yw9jnz8qZw0Nb4hPnNQpENsjtVvxd8r7gznZ7xdo1n-49XFMCwgtF18CW9JgaQ6QqyVzQByoadpKzakccOjWampR.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2560x2560&from=bu&cs=1280x0') center/cover no-repeat;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      overflow:hidden;
+      margin-top: 60px; /* Отступ от фиксированного хедера */
+    }
+    /* Добавил легкий затемняющий слой для лучшей читаемости */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0, 0, 0, 0.3); /* Легкое затемнение - совсем немного */
+      z-index:1;
+    }
+    .hero-content{
+      position:relative;
+      max-width:800px;
+      padding:30px;
+      animation:fadeUpScale 1.2s ease-out; /* Изменил анимацию */
+      z-index:2;
+    }
+    .hero h1{
+      font-size:72px; /* Увеличил с 62px */
+      margin:0 0 20px;
+      color:#fff;
+      text-shadow:0 4px 20px rgba(0,0,0,0.9); /* Усилена тень */
+      letter-spacing:-0.5px;
+      font-weight:700;
+    }
+    .hero p{
+      font-size:28px; /* Увеличил с 24px */
+      opacity:0.95;
+      margin-bottom:10px;
+      font-weight:500;
+      color:#fff;
+      text-shadow:0 2px 15px rgba(0,0,0,0.8); /* Усилена тень */
+    }
+    .hero .subtitle{
+      font-size:20px; /* Увеличил с 18px */
+      opacity:0.95;
+      margin-bottom:40px;
+      color:#fff;
+      font-weight:500;
+      text-shadow:0 2px 10px rgba(0,0,0,0.8); /* Усилена тень */
+    }
+    /* Убрал кнопку из героя */
+    .hero a{
+      display:none;
+    }
+
+    /* ================= СЕКЦИЯ С КНОПКОЙ НА БЕЛОМ ФОНЕ ================= */
+    .cta-section {
+      background: var(--white);
+      padding: 80px 20px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .cta-container {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    
+    .cta-title {
+      font-size: 36px;
+      color: var(--text);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .cta-description {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 18px 42px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-light));
+      color: white;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 10px 25px rgba(128,0,128,0.25);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .cta-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.6s;
+      z-index: -1;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(128,0,128,0.35);
+    }
+    
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    /* ================= SECTIONS ================= */
+    section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:120px 20px;
+    }
+
+    .card{
+      background:var(--white);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow);
+      padding:50px;
+      transition:var(--transition);
+    }
+    .card:hover{
+      transform:translateY(-8px);
+      box-shadow:var(--shadow-lg);
+    }
+
+    h2{
+      margin:0 0 20px;
+      font-size:38px;
+      position:relative;
+      display:inline-block;
+    }
+    h2::after{
+      content:"";
+      position:absolute;
+      bottom:-10px;
+      left:0;
+      width:60px;
+      height:4px;
+      background:linear-gradient(to right, var(--accent), var(--accent-light));
+      border-radius:2px;
+    }
+    p{color:var(--muted);line-height:1.8; font-size:16px;}
+
+    /* ================= SERVICES ================= */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:28px;
+      margin-top:40px;
+    }
+    .service{
+      padding:32px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg,#fff,#f4f7fb);
+      box-shadow:var(--shadow-sm);
+      transition:var(--transition);
+      position:relative;
+      overflow:hidden;
+    }
+    .service::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:4px;
+      height:100%;
+      background:linear-gradient(to bottom, var(--accent), var(--accent-light));
+      opacity:0;
+      transition:var(--transition);
+    }
+    .service:hover{
+      transform:translateY(-5px);
+      box-shadow:var(--shadow);
+    }
+    .service:hover::before{
+      opacity:1;
+    }
+    .service h3{
+      font-size:22px;
+      margin-bottom:12px;
+      color:var(--text);
+    }
+
+    /* ================= UNIFIED IMAGE STYLES ================= */
+    .image-container{
+      position:relative;
+      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-lg);
+      transition:var(--transition);
+      background:var(--white);
+    }
+    .image-container:hover{
+      transform:translateY(-8px);
+      box-shadow:0 25px 50px rgba(128, 0, 128, 0.2);
+    }
+
+    .styled-image{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      transition:transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .image-container:hover .styled-image{
+      transform:scale(1.05);
+    }
+
+    /* ================= TEAM ================= */
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:32px;
+      margin-top:40px;
+    }
+    @media(max-width:900px){
+      .team-grid{grid-template-columns:1fr}
+    }
+    .team-member{
+      padding:0;
+      border-radius:var(--radius);
+      background:transparent;
+      text-align:center;
+    }
+    .team-member .image-container{
+      height:320px;
+      margin-bottom:24px;
+    }
+    .team-member img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .team-member h3{
+      margin:0 0 6px;
+      font-size:22px;
+      color:var(--text);
+    }
+    .team-member .position{
+      font-weight:600;
+      color:var(--accent);
+      margin:0 0 16px;
+      font-style:normal;
+      font-size:15px;
+    }
+    .team-member p{
+      font-size:15px;
+      padding:0 10px 20px;
+    }
+
+    /* ================= CLIENTS ================= */
+    .clients-logos{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:32px;
+      margin-top:50px;
+    }
+    .client-logo-container{
+      padding:0;
+      border-radius:0;
+      background:transparent;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      transition:var(--transition);
+      box-shadow:none;
+      height:auto;
+      min-height:auto;
+      position:relative;
+      overflow:hidden;
+    }
+    .client-logo-img{
+      width:100%;
+      height:auto;
+      max-height:120px;
+      filter:grayscale(30%);
+      opacity:0.8;
+      transition:var(--transition);
+      object-fit:contain;
+      padding:20px;
+    }
+    .client-logo-img.white-bg-logo{
+      filter:grayscale(30%) brightness(1.1) contrast(1.1);
+      mix-blend-mode:multiply;
+      background-color:transparent;
+    }
+    .client-logo-img.mother-child-logo{
+      filter:grayscale(30%);
+      opacity:0.8;
+      background-color:transparent;
+      max-height:110px;
+      width:100%;
+      max-width:100%;
+      object-fit:contain;
+      padding:25px;
+    }
+    .client-logo-container:hover .client-logo-img{
+      filter:grayscale(0%);
+      opacity:1;
+      transform:scale(1.05);
+    }
+    .client-logo-container:hover .client-logo-img.white-bg-logo{
+      filter:grayscale(0%) brightness(1.2) contrast(1.2);
+    }
+    .client-logo-container:hover .client-logo-img.mother-child-logo{
+      filter:grayscale(0%);
+      opacity:1;
+      transform:scale(1.05);
+    }
+
+    /* ================= PARALLAX ================= */
+    .parallax{
+      height:420px;
+      background:url('https://sun9-38.userapi.com/s/v1/ig2/9W5eDY-1rMrxPt8YYGE9R7erWNUfIA-jBP6N-bCVRjn5UY869UtgSEejp99eFVEZrCKP2rDu5bcB1Pwx89cwfUjG.jpg?quality=95&as=32x16,48x24,72x36,108x54,160x80,240x120,360x180,480x240,540x270,640x320,720x360,1080x540,1280x640,1440x720,2160x1080&from=bu&cs=1280x0') center/cover fixed;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:42px;
+      font-weight:700;
+      position:relative;
+      overflow:hidden;
+    }
+    .parallax::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0, 0, 0, 0.5);
+    }
+    .parallax-content{
+      position:relative;
+      z-index:2;
+      text-shadow:0 10px 30px rgba(0,0,0,0.5);
+      animation:float 6s ease-in-out infinite;
+    }
+
+    /* ================= TIMELINE ================= */
+    .timeline{
+      margin-top:40px;
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+      position:relative;
+      padding-left:20px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:5px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:linear-gradient(to bottom, var(--accent), var(--accent-light));
+      border-radius:2px;
+    }
+    .event{
+      display:flex;
+      gap:20px;
+      align-items:flex-start;
+      opacity:0;
+      transform:translateX(-20px);
+      animation:fadeInRight 0.8s ease forwards;
+      animation-delay:calc(var(--i) * 0.2s);
+    }
+    .dot{
+      width:14px;
+      height:14px;
+      border-radius:50%;
+      background:var(--accent);
+      flex-shrink:0;
+      margin-top:6px;
+      position:relative;
+      z-index:2;
+      box-shadow:0 0 0 4px rgba(128,0,128,0.1);
+      animation:pulse 2s infinite;
+    }
+    .event p{
+      margin:0;
+      font-size:16px;
+      padding-top:2px;
+    }
+    .event b{
+      color:var(--accent);
+    }
+
+    /* ================= CONTACT ================= */
+    .contact{
+      text-align:center;
+      padding:80px 20px !important;
+    }
+    .contact h2{
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .contact h2::after{
+      left:50%;
+      transform:translateX(-50%);
+    }
+    .contact p{
+      font-size:18px;
+      margin:10px 0;
+    }
+    .contact .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:30px;
+      padding:16px 36px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-light));
+      color:#fff;
+      border-radius:16px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:16px;
+      box-shadow:0 10px 25px rgba(128,0,128,0.25);
+      transition:var(--transition);
+      position:relative;
+      overflow:hidden;
+    }
+    .contact .btn::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:-100%;
+      width:100%;
+      height:100%;
+      background:linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition:0.6s;
+    }
+    .contact .btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 15px 35px rgba(128,0,128,0.35);
+    }
+    .contact .btn:hover::before{
+      left:100%;
+    }
+
+    /* ================= FOOTER ================= */
+    footer{
+      text-align:center;
+      padding:50px;
+      font-size:14px;
+      color:var(--muted);
+      background:linear-gradient(180deg, var(--light-gray), var(--white));
+      border-top:1px solid rgba(0,0,0,0.05);
+      position:relative;
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:100px;
+      height:3px;
+      background:linear-gradient(to right, var(--accent), var(--accent-light));
+      border-radius:2px;
+    }
+
+    /* ================= ANIMATIONS ================= */
+    .fade{
+      opacity:0;
+      transform:translateY(40px);
+      transition:opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade.visible{
+      opacity:1;
+      transform:none;
+    }
+
+    /* Новая анимация с увеличением */
+    @keyframes fadeUpScale{
+      0%{
+        opacity:0;
+        transform:translateY(60px) scale(0.85);
+      }
+      70%{
+        opacity:0.7;
+        transform:translateY(-5px) scale(1.05);
+      }
+      100%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeInRight{
+      from{opacity:0;transform:translateX(-20px);}
+      to{opacity:1;transform:translateX(0);}
+    }
+
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(128,0,128,0.4);}
+      70%{box-shadow:0 0 0 10px rgba(128,0,128,0);}
+      100%{box-shadow:0 0 0 0 rgba(128,0,128,0);}
+    }
+
+    @keyframes float{
+      0%, 100%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+    }
+
+    @keyframes gradientShift{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media(max-width:900px){
+      .grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:1fr}
+      .hero h1{font-size:54px} /* Увеличил для планшетов */
+      .hero p{font-size:22px} /* Увеличил для планшетов */
+      .hero .subtitle{font-size:18px} /* Увеличил для планшетов */
+      .hero { height: 60vh; }
+      .cta-title { font-size: 32px; }
+      h2{font-size:32px}
+      .parallax{font-size:32px; height:320px;}
+      section{padding:80px 20px;}
+      nav a{margin-left:15px; font-size:14px;}
+      .clients-logos{grid-template-columns:repeat(2, 1fr);}
+      .client-logo-img{
+        max-height:100px;
+        padding:15px;
+      }
+      .client-logo-img.mother-child-logo{
+        max-height:90px;
+        padding:20px;
+      }
+    }
+
+    @media(max-width:600px){
+      .hero h1{font-size:42px} /* Увеличил для мобильных */
+      .hero p{font-size:20px} /* Увеличил для мобильных */
+      .hero .subtitle{font-size:16px} /* Увеличил для мобильных */
+      .hero { height: 50vh; margin-top: 70px; }
+      .scroll-progress {
+        height: 3px; /* Тоньше на мобильных */
+      }
+      .cta-title { font-size: 28px; }
+      .cta-description { font-size: 16px; }
+      .header-inner{flex-direction:column; gap:15px;}
+      nav{margin-top:10px;}
+      nav a{margin:0 10px;}
+      .clients-logos{grid-template-columns:1fr;}
+      .client-logo-img{
+        max-height:80px;
+        padding:10px;
+      }
+      .client-logo-img.mother-child-logo{
+        max-height:70px;
+        padding:15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Progress Bar -->
+<div class="scroll-progress"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo" id="home-logo">ORGANI' CARE</div>
+    <nav>
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#history">История</a>
+      <a href="#team">Команда</a>
+      <a href="#clients">Нам доверяют</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero" id="home">
+  <div class="hero-content">
+    <h1>ORGANI' CARE</h1>
+    <p>Гастрономическая культура корпоративного и лечебного</p>
+    <p class="subtitle">питания нового поколения</p>
+  </div>
+</div>
+
+<!-- Новая секция с кнопкой на белом фоне -->
+<div class="cta-section fade">
+  <div class="cta-container">
+    <h2 class="cta-title">Готовы изменить культуру питания?</h2>
+    <p class="cta-description">
+      Свяжитесь с нами, чтобы обсудить индивидуальные решения для вашей компании или клиники
+    </p>
+    <a href="https://t.me/Iron_Lii" class="cta-button">Написать нам</a>
+  </div>
+</div>
+
+<section id="about" class="fade">
+  <div class="card">
+    <h2>О нас</h2>
+    <p>
+      ORGANI' CARE — сервис нового поколения. Мы объединяем гастрономию,
+      медицину и сервис, создавая питание, которому доверяют компании и клиники.
+      Наш подход основан на научных исследованиях, инновационных технологиях
+      и индивидуальном подходе к каждому клиенту.
+    </p>
+  </div>
+</section>
+
+<section id="services" class="fade">
+  <h2>Наши услуги</h2>
+  <div class="grid">
+    <div class="service">
+      <h3>Корпоративное питание</h3>
+      <p>Столовые, бизнес-ланчи, питание для офисов. Создаем сбалансированные рационы для повышения продуктивности сотрудников.</p>
+    </div>
+    <div class="service">
+      <h3>Лечебное питание</h3>
+      <p>Рационы для клиник, пациентов и реабилитации. Индивидуальные программы питания для различных медицинских показаний.</p>
+    </div>
+  </div>
+</section>
+
+<div class="parallax">
+  <div class="parallax-content">Качество · Забота · Инновации</div>
+</div>
+
+<section id="history" class="fade">
+  <h2>История развития</h2>
+  <div class="timeline">
+    <div class="event" style="--i:0"><div class="dot"></div><p><b>2016</b> — основание компании и запуск первых кулинарных решений</p></div>
+    <div class="event" style="--i:1"><div class="dot"></div><p><b>2018</b> — первые крупные клиенты и расширение производства</p></div>
+    <div class="event" style="--i:2"><div class="dot"></div><p><b>2023</b> — фокус на лечебное питание и внедрение инновационных технологий</p></div>
+  </div>
+</section>
+
+<section id="team" class="fade">
+  <h2>Наша команда</h2>
+  <div class="team-grid">
+    <div class="team-member">
+      <div class="image-container">
+        <img src="https://sun9-77.userapi.com/s/v1/ig2/hYDWeIEwlEhxt9rnKKV16M5Ivx8IUlNyzV8i5p0k170eecLKaYZ5Rot0VliddjKe0Her3TNKhXFLk3crtkkw8W4U.jpg?quality=95&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,853x1280&from=bu&cs=853x0" alt="Лия Дубровина" class="styled-image">
+      </div>
+      <h3>Лия Дубровина</h3>
+      <p class="position">Идеолог компании, CEO</p>
+      <p>В 2016 году благодаря идеям и стремлениям Лии появился продукт ORGANI' CARE. За несколько лет из небольшой кухни она развила проект до серьёзного и современного производства.</p>
+    </div>
+    <div class="team-member">
+      <div class="image-container">
+        <img src="https://sun9-3.userapi.com/s/v1/ig2/Y9gwbrEAvOxQXVhB2InpURsmCYp6mycBrMsmxzAsRWD0Aa0O3S7zDp07k97B9HVaQpv17Rs86fDpaUNYtpFXrr8_.jpg?quality=95&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,828x1242&from=bu&cs=828x0" alt="Захаров Сергей" class="styled-image">
+      </div>
+      <h3>Захаров Сергей</h3>
+      <p class="position">Операционный директор, COO</p>
+      <p>От закупки микромаркетов до ведения производственных процессов Сергей делает всё, чтобы продукт ORGANI' CARE был лидером на рынке привозного и индустриального питания.</p>
+    </div>
+    <div class="team-member">
+      <div class="image-container">
+        <img src="https://sun9-70.userapi.com/s/v1/ig2/_M0dJi5nFSNZCelSMi2Y-3VLsmjI9fnw_ZZRtwfXLkInsJM9pDTglH9rDvFXyEQLfvhOXsHNPC4y7Q5VynWqBqHf.jpg?quality=95&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,533x800&from=bu&cs=533x0" alt="Сорокин Юрий" class="styled-image">
+      </div>
+      <h3>Сорокин Юрий</h3>
+      <p class="position">Шеф-повар</p>
+      <p>Под руководством шефа команда кухни готовит блюда разных направлений. Юрий внимательный руководитель и опытный шеф-повар, одарённый гастрономическим талантом.</p>
+    </div>
+  </div>
+</section>
+
+<section id="clients" class="fade clients">
+  <h2>Нам доверяют</h2>
+  <div class="clients-logos">
+    <div class="client-logo-container">
+      <img src="https://static.tildacdn.com/tild6662-3363-4464-a539-323931393665/__.png" alt="Моя школа в Петербурге" class="client-logo-img white-bg-logo">
+    </div>
+    <div class="client-logo-container">
+      <img src="https://cisedu.com/img/host/CIS_fulllogo.png" alt="Cambridge School в Петербурге" class="client-logo-img">
+    </div>
+    <div class="client-logo-container">
+      <img src="https://www.avaclinic.ru/local/templates/avaclinic/images/svg/logo/default/regular.svg" alt="Скандинавия" class="client-logo-img">
+    </div>
+    <div class="client-logo-container">
+      <img src="https://vademec.ru/upload/iblock/3c2/1n8mr24e1whvmjxull4xxjyrxp418y3u.PNG" alt="Мать и дитя" class="client-logo-img mother-child-logo">
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="fade contact">
+  <h2>Связаться с нами</h2>
+  <p>8 (812) 750-70-00</p>
+  <p>iron@organicare.ru</p>
+  <a class="btn" href="mailto:iron@organicare.ru">
+    Написать письмо
+  </a>
+</section>
+
+<footer>
+  © 2026 ORGANI' CARE — Премиальное питание нового поколения
+</footer>
+
+<script>
+  // Progress Bar при скролле
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    const progressBar = document.querySelector('.scroll-progress');
+    if (progressBar) {
+      progressBar.style.width = scrolled + '%';
+    }
+    
+    // Header scroll effect
+    const header = document.querySelector('header');
+    if (window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Intersection Observer для анимаций
+  const obs = new IntersectionObserver(e => {
+    e.forEach(x => {
+      if (x.isIntersecting) {
+        x.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+
+  // Анимация для timeline элементов
+  const timelineEvents = document.querySelectorAll('.event');
+  const timelineObs = new IntersectionObserver(e => {
+    e.forEach(x => {
+      if (x.isIntersecting) {
+        x.target.style.animationDelay = x.target.style.getPropertyValue('--i') * 0.2 + 's';
+        x.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  timelineEvents.forEach(el => timelineObs.observe(el));
+
+  // Smooth scroll для навигации
+  document.querySelectorAll('nav a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Клик по логотипу для возврата наверх
+  document.getElementById('home-logo').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Инициализация при загрузке
+  document.addEventListener('DOMContentLoaded', () => {
+    // Добавляем класс scrolled если страница уже проскроллена
+    if (window.scrollY > 50) {
+      document.querySelector('header').classList.add('scrolled');
+    }
+    
+    // Инициализация progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.insertBefore(progressBar, document.body.firstChild);
+  });
+</script>
+
+</body>
+</html>
